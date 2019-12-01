@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 
 #include "avscanner.h"
 #include "detailswindow.h"
@@ -29,5 +30,8 @@ private:
     AVScanner *myavs;
     DetailsWindow *dw;
     bool scanFinished = false;
+
+protected:
+    void closeEvent(QCloseEvent *event);
 };
 #endif // MAINWINDOW_H

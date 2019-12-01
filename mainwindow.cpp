@@ -43,7 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
         ui->btnShowDetails->setEnabled(true);
     });
 
-    myavs->scan();  // Start clamscan
+    if(!scanFinished) {
+        myavs->scan();  // Start clamscan
+    }
 }
 
 MainWindow::~MainWindow()
@@ -86,4 +88,23 @@ void MainWindow::on_btnShowDetails_clicked()
 {
     dw = new DetailsWindow;
     dw->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(scanFinished) {
+        event->accept();
+    } else{
+        QMessageBox msgBox;
+        msgBox.setWindowTitle(tr("Cancel scan?"));
+        msgBox.setText(tr("Do you really want to cancel the scan?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        if(msgBox.exec() == QMessageBox::Yes) {
+            myavs->stop();
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    }
 }
