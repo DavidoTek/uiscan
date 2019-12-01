@@ -1,5 +1,6 @@
 # uiscan
  A frontend for clamscan/clamdscan
+ Part of [WatchDogSecurity](https://github.com/DavidoTek/WatchDogSecurity)
 
 ## Features
  - Shows scanned / infected files
